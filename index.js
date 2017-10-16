@@ -2,12 +2,16 @@ const express = require('express');
 const path = require('path')
 const app = express();
 
+app.set('view engine', 'pug')
+
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
+  res.render(
+    'index',
+  { title: 'yo, yo, yo!', message: 'Whasssssup???'})
 })
 
 app.get('/new', (req, res) => {
-  res.sendFile(__dirname + '/new.html')
+  res.sendFile(__dirname + '/new.pug')
 })
 
 app.listen(3000)
