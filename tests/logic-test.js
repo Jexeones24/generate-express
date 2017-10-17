@@ -178,7 +178,6 @@ assert(Array.isArray(input) === true);
 assert(logic.chooseRepsForAMRAP(things).length === things.length);
 
 
-
 // repsSwitch
   // how do you test this??
 
