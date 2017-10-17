@@ -45,8 +45,8 @@ function chooseStyle(duration) {
 
 
 function chooseNumberOfMovements(name, duration) {
-  let styleObj = styles.filter(s => s.name === name)[0]
-  let durationArr = styleObj.durationRanges[duration]
+  let styleObj = styles.filter(s => s.name === name)
+  let durationArr = styleObj[0].durationRanges[duration]
   return random(durationArr, 1);
 }
 
@@ -86,7 +86,7 @@ const calculateTimePerMovement = (timeDomain, chosenMovements) => {
 // based on per min
 function chooseRepsForEMOM(timeDomain, chosenMovements) {
   let timesArr = calculateTimePerMovement(timeDomain, chosenMovements)
-  return chosenMovements.map((m, i) => Math.floor(timesArr[i]/m.secondsPerRep)/timeDomain);
+  return chosenMovements.map((m, i) => Math.round(Math.floor(timesArr[i]/m.secondsPerRep)/timeDomain));
 }
 
 // divide totalWorkTime/# of rounds

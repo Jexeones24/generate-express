@@ -1,10 +1,44 @@
 html
   head
-    h1 Hello World!
+    h2 WORKOUT INDEX!
   body
+    |
+    |
+    style.
+      body {
+        background-color: lavender;
+      }
+    h4 Time Domain: #{timeDomain}
+    h4 Duration: #{duration}
+    h4 Style: #{style}
+    h4 Number of Movements: #{numberOfMovements}
+    h4 Movements:
     ul
       each movement in movements
         li= movement.name
+    |
+    |
+    h4 For EMOM:
     ul
-      each thing in random
-        li= thing.name
+      each rep in repsPerEMOM
+        li= rep
+    |
+    |
+    h4 For Rounds:
+    ul
+      each rep in repsPerRounds
+        li= rep
+    |
+    |
+    h4 Workout:
+    ul
+      each line in zipped
+        li= line
+    |
+    |
+    style(type="text/css").
+      a:hover {
+        color: red
+      }
+    - var url = 'new'
+    a(href=url) Create new workout
