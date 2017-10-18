@@ -47,35 +47,35 @@ const movements = [
 
 const styles = [
   {
-    name: 'AMRAP',
-    durationRanges: {
+    style: 'AMRAP',
+    numOfMovementsForDuration: {
       short: [2, 3],
       moderate: [3, 4],
       long: [5, 6]
     }
   },
   {
-    name: 'EMOM',
-    durationRanges: {
+    style: 'EMOM',
+    numOfMovementsForDuration: {
       short: [1, 2]
     }
   },
   {
-    name: '3RFT',
-    durationRanges: {
+    style: '3RFT',
+    numOfMovementsForDuration: {
       short: [2, 3],
       moderate: [3, 4]
     }
   },
   {
-    name: '5RFT',
-    durationRanges: {
+    style: '5RFT',
+    numOfMovementsForDuration: {
       long: [4, 5]
     }
   },
   {
-    name: 'E3MOM',
-    durationRanges: {
+    style: 'E3MOM',
+    numOfMovementsForDuration: {
       long: [2, 3]
     }
   }

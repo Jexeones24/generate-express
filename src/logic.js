@@ -4,7 +4,6 @@ const data = require('../data.js');
 const movements = data.movements;
 const styles = data.styles;
 
-
 // check for valid time domain
 
 function random(arr, numOfItems){
@@ -25,7 +24,8 @@ function range(low, high) {
 }
 
 
-function duration(timeDomain){
+function getDuration(timeDomain){
+  console.log('inside get duration, time domain is:', timeDomain)
   if(range(6, 15).includes(timeDomain)){
     return 'short'
   } else if(range(16, 25).includes(timeDomain)){
@@ -34,6 +34,8 @@ function duration(timeDomain){
     return 'long'
   }
 }
+
+
 
 function chooseStyle(duration) {
   if(duration === 'short' || duration === 'moderate'){
@@ -44,15 +46,19 @@ function chooseStyle(duration) {
 }
 
 
-function chooseNumberOfMovements(name, duration) {
-  let styleObj = styles.filter(s => s.name === name)
-  let durationArr = styleObj[0].durationRanges[duration]
-  return random(durationArr, 1);
+function chooseNumberOfMovements(style, duration) {
+
+  let styleObj = styles.filter(s => s.style === style[0])
+
+  let numOfMovementsForDurationArr = styleObj[0].numOfMovementsForDuration[duration]
+    console.log('possible num of movements for this duration:', numOfMovementsForDurationArr)
+  return random(numOfMovementsForDurationArr, 1);
 }
 
-function chooseMovements(num) {
-  return random(movements, num);
+function chooseMovements(numberOfMovements) {
+  return random(movements, numberOfMovements);
 }
+
 
 const calculateTotalWorkTime = (timeDomain) => Math.floor((timeDomain * 60) * .75);
 
@@ -77,9 +83,9 @@ const skillLevelFactor = (movement, timePerMovement) => {
 const calculateTimePerMovement = (timeDomain, chosenMovements) => {
   let totalWorkTime = calculateTotalWorkTime(timeDomain);
   let timePerMovement = totalWorkTime/chosenMovements.length;
-
   return chosenMovements.map(m => skillLevelFactor(m, timePerMovement));
 }
+
 
 
 // chosenMovements = [{}, {}, {}]
@@ -109,14 +115,20 @@ function chooseRepsForAMRAP(chosenMovements) {
   return repsArr;
 }
 
+// const isString = (value) => typeof value === 'string'
 
-// switch for choosing reps for style
-function repsSwitch(style, chosenMovements){
-  if(style === 'AMRAP'){
+function chooseRepsByStyle(timeDomain, style, chosenMovements){
+  console.log('inside reps by style, style:', style, 'chosenMovements:', chosenMovements)
+  let styleString = style[0]
+
+  if(styleString === 'AMRAP'){
+    console.log('hit the amrap')
     return chooseRepsForAMRAP(chosenMovements);
-  } else if(style === '3RFT' || style === '5RFT'){
-    return chooseRepsForRounds(timeDomain, style, chosenMovements);
+  } else if(styleString === '3RFT' || styleString === '5RFT'){
+    console.log('hit the rounds')
+    return chooseRepsForRounds(timeDomain, styleString, chosenMovements);
   } else {
+    console.log('hit the else statement')
     return chooseRepsForEMOM(timeDomain, chosenMovements);
   }
 }
@@ -133,6 +145,32 @@ function zip(arr1, arr2) {
   return zipped;
 }
 
+
+
+function makeWorkout(timeDomain) {
+  var timeDomain = 35;
+  console.log('time:', timeDomain)
+  // returns 'short'
+  let duration = getDuration(timeDomain);
+  // returns 'AMRAP'
+  let style = chooseStyle(duration);
+  console.log('style:', style)
+  // returns 3
+  let numberOfMovements = chooseNumberOfMovements(style, duration);
+  console.log('number of movements:', numberOfMovements);
+  // returns [{}, {}, {}]
+  let chosenMovements = chooseMovements(numberOfMovements);
+  console.log('chosen movements are:', chosenMovements)
+  // returns [14, 5, 20]
+  let repsPerMovement = chooseRepsByStyle(timeDomain, style, chosenMovements)
+  console.log('reps per movement:', repsPerMovement)
+  let workout = zip(repsPerMovement, chosenMovements);
+  return workout;
+}
+
+makeWorkout();
+
+
 // to display:
 // var names = chosenMovements.map(m => m.name);
 // var workout = zip([ 12, 39, 37 ], names);
@@ -140,8 +178,9 @@ function zip(arr1, arr2) {
 // workout.forEach((set, idx) => console.log(set[0] + ' ' + set[1]));
 
 
+
 module.exports = {
-  duration,
+  getDuration,
   random,
   range,
   chooseStyle,

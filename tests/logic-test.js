@@ -40,12 +40,12 @@ function arraysEqual(arr1, arr2){
 // duration
 let timeDomain = 10
 expected = 'short'
-actual = logic.duration(timeDomain)
+actual = logic.getDuration(timeDomain)
 assert(actual === expected)
 
 timeDomain = 56
 expected = 'long'
-actual = logic.duration(timeDomain)
+actual = logic.getDuration(timeDomain)
 assert(actual === expected)
 
 
