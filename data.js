@@ -57,7 +57,8 @@ const styles = [
   {
     style: 'EMOM',
     numOfMovementsForDuration: {
-      short: [1, 2]
+      short: [1, 2],
+      moderate: [1, 2]
     }
   },
   {

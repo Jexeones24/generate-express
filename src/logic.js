@@ -25,7 +25,6 @@ function range(low, high) {
 
 
 function getDuration(timeDomain){
-  console.log('inside get duration, time domain is:', timeDomain)
   if(range(6, 15).includes(timeDomain)){
     return 'short'
   } else if(range(16, 25).includes(timeDomain)){
@@ -118,7 +117,6 @@ function chooseRepsForAMRAP(chosenMovements) {
 // const isString = (value) => typeof value === 'string'
 
 function chooseRepsByStyle(timeDomain, style, chosenMovements){
-  console.log('inside reps by style, style:', style, 'chosenMovements:', chosenMovements)
   let styleString = style[0]
 
   if(styleString === 'AMRAP'){
@@ -134,7 +132,7 @@ function chooseRepsByStyle(timeDomain, style, chosenMovements){
 }
 
 
-//
+
 function zip(arr1, arr2) {
   let zipped = [];
   arr1.map((el, idx) => {
@@ -147,35 +145,32 @@ function zip(arr1, arr2) {
 
 
 
-function makeWorkout(timeDomain) {
-  var timeDomain = 35;
+function makeWorkout() {
+  // how will i get time domain here???
+  let workoutObj = {};
+  var timeDomain = 25;
   console.log('time:', timeDomain)
-  // returns 'short'
   let duration = getDuration(timeDomain);
-  // returns 'AMRAP'
   let style = chooseStyle(duration);
   console.log('style:', style)
-  // returns 3
   let numberOfMovements = chooseNumberOfMovements(style, duration);
-  console.log('number of movements:', numberOfMovements);
-  // returns [{}, {}, {}]
+  console.log('chosen number of movements:', numberOfMovements);
   let chosenMovements = chooseMovements(numberOfMovements);
   console.log('chosen movements are:', chosenMovements)
-  // returns [14, 5, 20]
   let repsPerMovement = chooseRepsByStyle(timeDomain, style, chosenMovements)
   console.log('reps per movement:', repsPerMovement)
-  let workout = zip(repsPerMovement, chosenMovements);
-  return workout;
+  let zipped = zip(repsPerMovement, chosenMovements);
+  //need to pass style and time domain - as an object?
+  workoutObj.style = style[0];
+  workoutObj.time = timeDomain;
+  workoutObj.workout = zipped;
+
+  console.log('workout object:',  workoutObj)
+  // workout.forEach((set, idx) => console.log(set[0] + ' ' + set[1].name))
+  return workoutObj;
 }
 
 makeWorkout();
-
-
-// to display:
-// var names = chosenMovements.map(m => m.name);
-// var workout = zip([ 12, 39, 37 ], names);
-//
-// workout.forEach((set, idx) => console.log(set[0] + ' ' + set[1]));
 
 
 
@@ -191,5 +186,6 @@ module.exports = {
   chooseRepsForEMOM,
   chooseRepsForRounds,
   chooseRepsForAMRAP,
-  zip
+  zip,
+  makeWorkout
 }
