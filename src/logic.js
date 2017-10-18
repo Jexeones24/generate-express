@@ -160,19 +160,14 @@ function makeWorkout() {
   let repsPerMovement = chooseRepsByStyle(timeDomain, style, chosenMovements)
   console.log('reps per movement:', repsPerMovement)
   let zipped = zip(repsPerMovement, chosenMovements);
-  //need to pass style and time domain - as an object?
   workoutObj.style = style[0];
   workoutObj.time = timeDomain;
   workoutObj.workout = zipped;
-
   console.log('workout object:',  workoutObj)
-  // workout.forEach((set, idx) => console.log(set[0] + ' ' + set[1].name))
   return workoutObj;
 }
 
 makeWorkout();
-
-
 
 module.exports = {
   getDuration,
