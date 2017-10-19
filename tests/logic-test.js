@@ -62,7 +62,7 @@ assert(actual === expected)
 
 
 //numberOfMovements
-let style = 'AMRAP';
+let style = ['AMRAP'];
 duration = 'long';
 let durationArr = [5, 6]
 expected = true;
@@ -141,11 +141,6 @@ function isNum(arr){
 }
 assert(isNum(logic.calculateTimePerMovement(10, chosen)) === true)
 
-// check that uses skillLevelFactor - time per movement has been adjusted based on skill level
-// calculateTimePerMovement() !== totalWorkTime/chosenMovements.length
-  // how can I test this for each movement in array
-
-
 
 // chooseRepsForEMOM
 input = logic.chooseRepsForEMOM(10, things);
@@ -153,6 +148,8 @@ assert(Array.isArray(input) === true);
 assert(logic.chooseRepsForEMOM(10, things).length === things.length);
 // check that time doesn't exceed 45 seconds for one round of work
 
+
+// check E3MOM to make sure timeDomain is even visible by 3
 
 
 // chooseRepsForRounds
@@ -170,16 +167,10 @@ assert(logic.chooseRepsForRounds(10, style, things).length === things.length);
 // total work time should not exceed timeDomain
 
 
-
-
 // chooseRepsForAMRAP
 input = logic.chooseRepsForAMRAP(things);
 assert(Array.isArray(input) === true);
 assert(logic.chooseRepsForAMRAP(things).length === things.length);
-
-
-// repsSwitch
-  // how do you test this??
 
 
 

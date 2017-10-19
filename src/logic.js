@@ -148,7 +148,7 @@ function zip(arr1, arr2) {
 function makeWorkout() {
   // how will i get time domain here???
   let workoutObj = {};
-  var timeDomain = 20;
+  var timeDomain = 30;
   console.log('time:', timeDomain)
   let duration = getDuration(timeDomain);
   let style = chooseStyle(duration);
@@ -168,6 +168,10 @@ function makeWorkout() {
 }
 
 makeWorkout();
+
+// make sure E3MOM fits with time domain...or make it E2MOM???
+// also need separate switch case for E3MOM, not working correctly bc thinks it's just EMOM
+// is that data file the best way to store this sort of data that I'm seeding myself
 
 module.exports = {
   getDuration,
