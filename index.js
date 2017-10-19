@@ -12,10 +12,7 @@ app.set('view engine', 'pug')
 
 
 app.get('/', (req, res) => {
-  console.log('index')
-  res.render('index', {
-    workoutObj: logic.makeWorkout()
-  })
+  res.render('index')
 })
 
 
@@ -25,8 +22,9 @@ app.get('/new', (req, res) => {
 
 
 app.post('/new', function (req, res) {
-  console.log(req.body)
-  console.log('new')
+  res.render('show', {
+    workoutObj: logic.makeWorkout(req.body.timeDomain)
+  })
 })
 
 

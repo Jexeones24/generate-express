@@ -118,7 +118,6 @@ function chooseRepsForAMRAP(chosenMovements) {
 
 function chooseRepsByStyle(timeDomain, style, chosenMovements){
   let styleString = style[0]
-
   if(styleString === 'AMRAP'){
     console.log('hit the amrap')
     return chooseRepsForAMRAP(chosenMovements);
@@ -130,6 +129,8 @@ function chooseRepsByStyle(timeDomain, style, chosenMovements){
     return chooseRepsForEMOM(timeDomain, chosenMovements);
   }
 }
+
+// make case for E3MOM
 
 
 
@@ -145,33 +146,31 @@ function zip(arr1, arr2) {
 
 
 
-function makeWorkout() {
-  // how will i get time domain here???
+function makeWorkout(timeDomain) {
+  // needs time domain from user input
   let workoutObj = {};
-  var timeDomain = 30;
-  console.log('time:', timeDomain)
+  // console.log('time:', timeDomain)
   let duration = getDuration(timeDomain);
   let style = chooseStyle(duration);
-  console.log('style:', style)
+  // console.log('style:', style)
   let numberOfMovements = chooseNumberOfMovements(style, duration);
-  console.log('chosen number of movements:', numberOfMovements);
+  // console.log('chosen number of movements:', numberOfMovements);
   let chosenMovements = chooseMovements(numberOfMovements);
-  console.log('chosen movements are:', chosenMovements)
+  // console.log('chosen movements are:', chosenMovements)
   let repsPerMovement = chooseRepsByStyle(timeDomain, style, chosenMovements)
-  console.log('reps per movement:', repsPerMovement)
+  // console.log('reps per movement:', repsPerMovement)
   let zipped = zip(repsPerMovement, chosenMovements);
   workoutObj.style = style[0];
   workoutObj.time = timeDomain;
   workoutObj.workout = zipped;
-  console.log('workout object:',  workoutObj)
+  // console.log('workout object:',  workoutObj)
   return workoutObj;
 }
 
 makeWorkout();
 
-// make sure E3MOM fits with time domain...or make it E2MOM???
 // also need separate switch case for E3MOM, not working correctly bc thinks it's just EMOM
-// is that data file the best way to store this sort of data that I'm seeding myself
+// is that data file the best way to store this sort of data that I'm seeding myself - should I change it to a JSON file?
 
 module.exports = {
   getDuration,

@@ -1,0 +1,15 @@
+html
+  head
+    h2 WORKOUT DISPLAY!
+    |
+    |
+  body
+    - var style = workoutObj.style
+    - var time = workoutObj.time
+    h3=style + ' ' + time
+    |
+    |
+    - var display = workoutObj.workout
+    ul
+      each set in display
+        li= set[0] + ' ' + set[1].name

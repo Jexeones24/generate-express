@@ -152,19 +152,15 @@ assert(logic.chooseRepsForEMOM(10, things).length === things.length);
 // check E3MOM to make sure timeDomain is even visible by 3
 
 
-// chooseRepsForRounds
-// check that rounds is a number
-style = '5RFT';
-input = logic.chooseRepsForRounds(10, style, things);
-expected = true;
+
+
 // does this even test anything about chooseRepsForRounds???
-// and is this not confusing as hell?
+// check that rounds is a number
 actual = Number(style.split('').shift()) !== NaN
 assert(expected === actual)
 
 assert(Array.isArray(input) === true);
 assert(logic.chooseRepsForRounds(10, style, things).length === things.length);
-// total work time should not exceed timeDomain
 
 
 // chooseRepsForAMRAP
