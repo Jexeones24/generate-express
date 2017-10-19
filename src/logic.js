@@ -148,7 +148,7 @@ function zip(arr1, arr2) {
 function makeWorkout() {
   // how will i get time domain here???
   let workoutObj = {};
-  var timeDomain = 25;
+  var timeDomain = 20;
   console.log('time:', timeDomain)
   let duration = getDuration(timeDomain);
   let style = chooseStyle(duration);

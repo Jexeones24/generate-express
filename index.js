@@ -1,23 +1,37 @@
 const express = require('express')
+const bodyParser= require('body-parser')
 const path = require('path')
 const app = express();
+
 const data = require('./data')
 const logic = require('./src/logic')
-// const movements = data.movements;
-// const styles = data.styles;
 
+app.use(bodyParser.urlencoded({extended: true}))
 
 app.set('view engine', 'pug')
 
-app.get('/', (req, res) => {
 
+app.get('/', (req, res) => {
+  console.log('index')
   res.render('index', {
     workoutObj: logic.makeWorkout()
   })
 })
 
+
 app.get('/new', (req, res) => {
-  res.render('new')
+  res.render('new', { title: 'CREATE NEW WORKOUT' })
 })
 
-app.listen(3000)
+
+app.post('/new', function (req, res) {
+  console.log(req.body)
+  console.log('new')
+})
+
+
+app.listen(3000, () => {
+  console.log('listening on port 3000')
+})
+
+module.exports = app;

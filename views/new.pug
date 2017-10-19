@@ -1,5 +1,13 @@
 
 html
+  head
+    h2=title
+    |
+    |
   body
-    input
-    button Submit
+    form(method='POST' action='/new')
+    label(for='timeDomain') Enter time:
+    input(type='text' placeholder='time domain' name='timeDomain' value=(undefined===timeDomain ? '' : workout.timeDomain) required='true')
+    button(type='submit')
+
+    p=timeDomain

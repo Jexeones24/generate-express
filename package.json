@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "node tests/logic-test.js",
     "start": "./node_modules/.bin/nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-validator": "^4.2.1",
     "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
