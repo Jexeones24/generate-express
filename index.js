@@ -22,8 +22,11 @@ app.get('/new', (req, res) => {
 
 
 app.post('/new', function (req, res) {
+
+  let timeDomain =  Number(req.body.timeDomain);
+
   res.render('show', {
-    workoutObj: logic.makeWorkout(req.body.timeDomain)
+    workoutObj: logic.makeWorkout(timeDomain)
   })
 })
 

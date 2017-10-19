@@ -1,5 +1,6 @@
 const shortAndModerateStyles = ['AMRAP', '3RFT', 'EMOM']
-const longStyles = ['AMRAP', '5RFT', 'E3MOM']
+const longOddStyles = ['AMRAP', '5RFT', 'E3MOM']
+const longStyles = ['AMRAP', '5RFT']
 const data = require('../data.js');
 const movements = data.movements;
 const styles = data.styles;
@@ -26,19 +27,22 @@ function range(low, high) {
 
 function getDuration(timeDomain){
   if(range(6, 15).includes(timeDomain)){
-    return 'short'
+    return 'short';
   } else if(range(16, 25).includes(timeDomain)){
-    return 'moderate'
+    return 'moderate';
   } else {
-    return 'long'
+    return 'long';
   }
 }
 
 
+// when duration = long && timeDomain % 3 === 0
 
-function chooseStyle(duration) {
+function chooseStyle(duration, timeDomain) {
   if(duration === 'short' || duration === 'moderate'){
     return random(shortAndModerateStyles, 1);
+  } else if(duration === 'long' && timeDomain % 3 === 0){
+    return random(longOddStyles, 1);
   } else {
     return random(longStyles, 1);
   }
@@ -46,11 +50,10 @@ function chooseStyle(duration) {
 
 
 function chooseNumberOfMovements(style, duration) {
-
   let styleObj = styles.filter(s => s.style === style[0])
-
+  console.log('styleObj:', styleObj)
   let numOfMovementsForDurationArr = styleObj[0].numOfMovementsForDuration[duration]
-    console.log('possible num of movements for this duration:', numOfMovementsForDurationArr)
+    // console.log('possible num of movements for this duration:', numOfMovementsForDurationArr)
   return random(numOfMovementsForDurationArr, 1);
 }
 
@@ -85,10 +88,10 @@ const calculateTimePerMovement = (timeDomain, chosenMovements) => {
   return chosenMovements.map(m => skillLevelFactor(m, timePerMovement));
 }
 
+// timeDomain = 20
+// movements = [{sq}, {MU}]
+// timesArr = revised total work time per movement based on skill
 
-
-// chosenMovements = [{}, {}, {}]
-// based on per min
 function chooseRepsForEMOM(timeDomain, chosenMovements) {
   let timesArr = calculateTimePerMovement(timeDomain, chosenMovements)
   return chosenMovements.map((m, i) => Math.round(Math.floor(timesArr[i]/m.secondsPerRep)/timeDomain));
@@ -97,41 +100,47 @@ function chooseRepsForEMOM(timeDomain, chosenMovements) {
 // divide totalWorkTime/# of rounds
 // https://repl.it/MdFa/6
 function chooseRepsForRounds(timeDomain, style, chosenMovements) {
-  let rounds = style.split('').shift();
+  // console.log(style)
+  let rounds = style.join('')[0];
   let timePerMovement = calculateTimePerMovement(timeDomain, chosenMovements);
   let timePerMovementPerRound = timePerMovement.map(t => t/rounds);
   return chosenMovements.map((m, i) => Math.round(Math.ceil(timePerMovementPerRound[i]/m.secondsPerRep)));
 }
 
 function chooseRepsForAMRAP(chosenMovements) {
-  // randomly choose reps
   let number = chosenMovements.length
   let repsArr = [];
-
   for(var i = 0; i < chosenMovements.length; i++){
     repsArr.push(Math.floor(Math.random() * 40))
   }
   return repsArr;
 }
 
-// const isString = (value) => typeof value === 'string'
 
-function chooseRepsByStyle(timeDomain, style, chosenMovements){
-  let styleString = style[0]
-  if(styleString === 'AMRAP'){
-    console.log('hit the amrap')
-    return chooseRepsForAMRAP(chosenMovements);
-  } else if(styleString === '3RFT' || styleString === '5RFT'){
-    console.log('hit the rounds')
-    return chooseRepsForRounds(timeDomain, styleString, chosenMovements);
-  } else {
-    console.log('hit the else statement')
-    return chooseRepsForEMOM(timeDomain, chosenMovements);
-  }
+// needs to know when to choose this style?
+  // when duration = long && timeDomain % 3 === 0
+function chooseRepsForE3MOM(timeDomain, chosenMovements) {
+  console.log('E3MOM')
+  let timesArr = calculateTimePerMovement(timeDomain, chosenMovements)
+  let divisor = timeDomain/3
+  // timeDomain = 30
+  // time for E3MOM = 10 (10 rounds)
+  // [450, 300, 350]/10
+  return chosenMovements.map((m, i) => Math.round(Math.floor(timesArr[i]/m.secondsPerRep)/divisor));
 }
 
-// make case for E3MOM
 
+function chooseRepsByStyle(timeDomain, style, chosenMovements) {
+  if(String(style) === 'AMRAP') {
+    return chooseRepsForAMRAP(chosenMovements);
+  } else if(String(style) === '3RFT' || String(style) === '5RFT') {
+    return chooseRepsForRounds(timeDomain, style, chosenMovements);
+  } else if(String(style) === 'EMOM') {
+    return chooseRepsForEMOM(timeDomain, chosenMovements)
+  } else {
+    return chooseRepsForE3MOM(timeDomain, chosenMovements);
+  }
+}
 
 
 function zip(arr1, arr2) {
@@ -147,23 +156,22 @@ function zip(arr1, arr2) {
 
 
 function makeWorkout(timeDomain) {
-  // needs time domain from user input
   let workoutObj = {};
-  // console.log('time:', timeDomain)
+  console.log('time domain:', timeDomain)
   let duration = getDuration(timeDomain);
-  let style = chooseStyle(duration);
-  // console.log('style:', style)
+  console.log('duration:', duration)
+  let style = chooseStyle(duration, timeDomain);
+  console.log('style:', style)
   let numberOfMovements = chooseNumberOfMovements(style, duration);
-  // console.log('chosen number of movements:', numberOfMovements);
+  console.log('num of movements:', numberOfMovements)
   let chosenMovements = chooseMovements(numberOfMovements);
-  // console.log('chosen movements are:', chosenMovements)
+  console.log('chosen movements:', chosenMovements)
   let repsPerMovement = chooseRepsByStyle(timeDomain, style, chosenMovements)
-  // console.log('reps per movement:', repsPerMovement)
+  console.log('reps per movement:', repsPerMovement)
   let zipped = zip(repsPerMovement, chosenMovements);
   workoutObj.style = style[0];
   workoutObj.time = timeDomain;
   workoutObj.workout = zipped;
-  // console.log('workout object:',  workoutObj)
   return workoutObj;
 }
 
@@ -184,6 +192,7 @@ module.exports = {
   chooseRepsForEMOM,
   chooseRepsForRounds,
   chooseRepsForAMRAP,
+  chooseRepsForE3MOM,
   zip,
   makeWorkout
 }

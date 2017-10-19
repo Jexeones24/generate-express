@@ -9,7 +9,7 @@ const movements = [
   {
     name: 'Pullup',
     type: 'Gymnastics',
-    skill: 'low',
+    skill: 'moderate',
     secondsPerRep: 2,
     url: ''
   },
@@ -38,7 +38,7 @@ const movements = [
     name: 'Box Jump',
     type: 'Plyometrics',
     skill: 'low',
-    secondsPerRep: 3,
+    secondsPerRep: 4,
     url: ''
   }
 ]
