@@ -150,32 +150,7 @@ assert(logic.chooseRepsForEMOM(10, things).length === things.length);
 
 
 // check E3MOM to make sure timeDomain is even visible by 3
-// timeDomain = 30
-// chosen = [
-//   {
-//     name: 'Pullup',
-//     type: 'Gymnastics',
-//     skill: 'high',
-//     secondsPerRep: 2,
-//     url: ''
-//   },
-//   {
-//     name: 'Wallball',
-//     type: 'Odd Object',
-//     skill: 'moderate',
-//     secondsPerRep: 3,
-//     url: ''
-//   },
-//   {
-//     name: 'Snatch',
-//     type: 'Olympic Weightlifting',
-//     skill: 'high',
-//     secondsPerRep: 4,
-//     url: ''
-//   }
-// ]
-// expected = true
-// actual = logic.chooseRepsForE3MOM(timeDomain, chosenMovements)
+
 
 
 // does this even test anything about chooseRepsForRounds???

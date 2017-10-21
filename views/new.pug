@@ -8,6 +8,6 @@ html
     form(method='POST' action='/new')
       label(for='timeDomain') Enter time:
       input(type='text' placeholder='time domain' name='timeDomain' value=(undefined===timeDomain ? '' : workout.timeDomain) required='true')
-      button(type='submit')
+      button(type='submit') Generate
 
-      p=timeDomain
+      
