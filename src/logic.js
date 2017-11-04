@@ -5,8 +5,6 @@ const data = require('../data.js');
 const movements = data.movements;
 const styles = data.styles;
 
-// check for valid time domain
-
 function random(arr, numOfItems){
   if(Array.isArray(arr) === false){
     return 'not an array'

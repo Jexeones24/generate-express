@@ -43,8 +43,6 @@ const movements = [
   }
 ]
 
-
-
 const styles = [
   {
     style: 'AMRAP',
@@ -81,9 +79,6 @@ const styles = [
     }
   }
 ]
-
-
-
 
 module.exports = {
   movements,

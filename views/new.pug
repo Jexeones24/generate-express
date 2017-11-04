@@ -1,13 +1,9 @@
 
 html
   head
-    h2=title
-    |
-    |
+    link(rel="stylesheet" type="text/css" href="/stylesheets/main.css")
   body
     form(method='POST' action='/new')
       label(for='timeDomain') Enter time:
       input(type='text' placeholder='time domain' name='timeDomain' value=(undefined===timeDomain ? '' : workout.timeDomain) required='true')
       button(type='submit') Generate
-
-      
