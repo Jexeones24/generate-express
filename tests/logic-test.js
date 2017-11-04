@@ -63,8 +63,6 @@ actual = durationArr.includes(logic.chooseNumberOfMovements(style, duration)[0])
 assert(actual === expected)
 
 // chooseMovements
-let movementsArr = movements
-let numberOfMovements = 2
 let chosen = [
   {
     name: 'Pullup',
